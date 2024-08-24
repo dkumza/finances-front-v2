@@ -8,7 +8,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -26,8 +25,8 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: 'darius@email.lt',
-      password: '123456',
+      email: '',
+      password: '',
     },
   });
 
@@ -56,7 +55,7 @@ export function LoginForm() {
             <FormItem>
               {/* <FormLabel>Email</FormLabel> */}
               <FormControl>
-                <Input placeholder='mail@example.com' type='email' {...field} />
+                <Input placeholder='Email' type='email' {...field} />
               </FormControl>
 
               <FormMessage />
@@ -70,14 +69,14 @@ export function LoginForm() {
             <FormItem>
               {/* <FormLabel>Password</FormLabel> */}
               <FormControl>
-                <Input placeholder='' type='password' {...field} />
+                <Input placeholder='Password' type='password' {...field} />
               </FormControl>
 
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Submit</Button>
+        <Button type='submit'>Login </Button>
       </form>
     </Form>
   );

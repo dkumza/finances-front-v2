@@ -7,11 +7,11 @@ interface AuthHeaderProps {
 
 export const AuthHeader: FC<AuthHeaderProps> = ({ title, message }) => {
   return (
-    <div className='text-center w-96'>
+    <div className='w-96'>
       <h3 className='scroll-m-20 text-2xl font-semibold tracking-tight'>
         {title}
       </h3>
-      <p className='leading-7 [&:not(:first-child)]:mt-2 text-muted-foreground'>
+      <p className='leading-7 [&:not(:first-child)]:mt-2 text-muted-foreground mb-4'>
         {message}
       </p>
     </div>

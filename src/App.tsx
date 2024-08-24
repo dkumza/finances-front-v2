@@ -3,7 +3,7 @@ import { Login } from './components/pages/auth/login/Login';
 
 function App() {
   return (
-    <div style={{ margin: '10px' }}>
+    <div>
       <Login />
       <Toaster />
     </div>
