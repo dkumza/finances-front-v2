@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
   email: z.string().email({ message: 'Email must be valid' }),
@@ -21,17 +21,18 @@ const FormSchema = z.object({
 });
 
 export function LoginForm() {
-  const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'darius@email.com',
+      password: '123456',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  // form submission handler
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log('data', data);
+
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -40,7 +41,7 @@ export function LoginForm() {
         </pre>
       ),
     });
-  }
+  };
 
   return (
     <Form {...form}>
