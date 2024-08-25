@@ -57,7 +57,7 @@ export function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-2 flex flex-col justify-center align-middle w-[350px]'
+        className='space-y-3 flex flex-col justify-center align-middle w-[350px]'
       >
         <FormField
           control={form.control}
@@ -85,7 +85,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Login </Button>
+        <Button type='submit'>Login</Button>
       </form>
     </Form>
   );
