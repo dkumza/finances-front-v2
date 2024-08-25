@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { NavLink } from 'react-router-dom';
-import { CustomSelect } from '@/components/customInputs/CustomSelect';
+import CustomSelect from '@/components/customInputs/CustomSelect';
 
 export const Header = () => {
   return (
