@@ -1,12 +1,11 @@
-import { toast } from 'react-toastify';
 import {
   deleteExpense,
   fetchExpenses,
   fetchUserExpenses,
-} from '../store/actions/expensesActions';
-import { logout } from '../store/slices/authSlice';
-import { setExpenses } from '../store/slices/expensesSlice';
-import store from '../store/store';
+} from '@/redux/actions/expensesActions';
+import { logout } from '@/redux/slices/authSlice';
+import { setExpenses } from '@/redux/slices/expensesSlice';
+import store from '@/redux/store';
 
 export const handleUserExpenses = () => {
   store.dispatch(fetchUserExpenses()).then((res) => {
@@ -20,13 +19,13 @@ export const handleUserExpenses = () => {
 
       if (errorInfo && errorInfo.status === 401) {
         store.dispatch(logout());
-        toast.error('Session expired');
+        // toast.error('Session expired');
         throw new Error('Unauthorized');
       }
 
       if (errorInfo && errorInfo.status === undefined) {
         store.dispatch(logout());
-        toast.error('Something went wrong');
+        // toast.error('Something went wrong');
         throw new Error('Something went wrong');
       }
       return;
@@ -47,13 +46,13 @@ export const handleExpenses = () => {
 
       if (errorInfo && errorInfo.status === 401) {
         store.dispatch(logout());
-        toast.error('Session expired');
+        // toast.error('Session expired');
         throw new Error('Unauthorized');
       }
 
       if (errorInfo && errorInfo.status === undefined) {
         store.dispatch(logout());
-        toast.error('Something went wrong');
+        // toast.error('Something went wrong');
         throw new Error('Something went wrong');
       }
       return;
@@ -65,12 +64,12 @@ export const handleExpenses = () => {
 export const handleDeleteTransaction = (id: string) => {
   store.dispatch(deleteExpense(id)).then((res) => {
     if (res.type === 'expenses/removeExpense/fulfilled') {
-      toast.success('Transaction deleted successfully');
+      // toast.success('Transaction deleted successfully');
       handleExpenses();
     }
     if (res.type !== 'expenses/removeExpense/fulfilled') {
       const errorMessage = `Failed to delete expense. Type: ${res.type}`;
-      toast.error('Failed to delete transaction');
+      // toast.error('Failed to delete transaction');
       throw new Error(errorMessage);
     }
   });

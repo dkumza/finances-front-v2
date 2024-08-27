@@ -8,8 +8,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppDispatch } from '@/redux/hooks';
+import { logout } from '@/redux/slices/authSlice';
 
 export function UserNav() {
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +38,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

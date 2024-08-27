@@ -1,6 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAppSelector } from '@/redux/hooks';
 
 export const DashCards = () => {
+  const { balance, totalExpense, totalIncome, savings } = useAppSelector(
+    (state) => state.expenses.fetchedExpenses
+  );
   return (
     <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
       <Card>
@@ -20,7 +24,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>45,231.89</div>
+          <div className='text-2xl font-bold'>{balance} €</div>
           {/* <p className='text-xs text-muted-foreground'>
             +20.1% from last month
           </p> */}
@@ -44,7 +48,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>-2350</div>
+          <div className='text-2xl font-bold'>{totalExpense} €</div>
         </CardContent>
       </Card>
       <Card>
@@ -64,7 +68,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>+12,234</div>
+          <div className='text-2xl font-bold'>{totalIncome} €</div>
         </CardContent>
       </Card>
       <Card>
@@ -90,7 +94,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>+573</div>
+          <div className='text-2xl font-bold'>{savings || 0} €</div>
         </CardContent>
       </Card>
     </div>
