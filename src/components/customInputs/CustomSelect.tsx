@@ -22,7 +22,7 @@ const groups = [
     label: 'Personal Account',
     teams: [
       {
-        label: 'Darius Kumza',
+        label: 'Darius Kumža',
         value: 'personal',
       },
     ],
@@ -31,8 +31,8 @@ const groups = [
     label: 'Family Account',
     teams: [
       {
-        label: 'Kumzai',
-        value: 'kumzai',
+        label: 'Kumžai',
+        value: 'kumžai',
       },
     ],
   },
