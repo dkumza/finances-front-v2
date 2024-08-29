@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import CustomSelect from '@/components/customInputs/CustomSelect';
 import { UserNav } from './UserNav';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 export const Header = () => {
   return (
@@ -22,6 +23,7 @@ export const Header = () => {
             />
           </div>
         </form>
+        <ThemeSwitcher />
         <UserNav />
       </div>
     </header>
