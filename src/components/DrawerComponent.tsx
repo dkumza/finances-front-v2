@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { MinusIcon, PlusIcon } from '@radix-ui/react-icons';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -17,54 +16,37 @@ interface DrawerComponentProps {
 }
 
 export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
-  const [goal, setGoal] = React.useState(350);
+  const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-  }
+  React.useEffect(() => {
+    const handleResize = () => {
+      setInnerWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Drawer direction='right'>
       <DrawerTrigger asChild>
         <Button>{title}</Button>
       </DrawerTrigger>
-      <DrawerContent>
-        <div className='mx-auto w-full max-w-sm'>
+      <DrawerContent
+        style={{ marginLeft: `${innerWidth - 700}px` }}
+        className='rounded-none '
+      >
+        <div className='m-6 min-w-max border border-green-600'>
           <DrawerHeader>
-            <DrawerTitle>Move Goal</DrawerTitle>
+            <DrawerTitle>Add New Transaction</DrawerTitle>
             <DrawerDescription>Set your daily activity goal.</DrawerDescription>
           </DrawerHeader>
           <div className='p-4 pb-0'>
-            <div className='flex items-center justify-center space-x-2'>
-              <Button
-                variant='outline'
-                size='icon'
-                className='h-8 w-8 shrink-0 rounded-full'
-                onClick={() => onClick(-10)}
-                disabled={goal <= 200}
-              >
-                <MinusIcon className='h-4 w-4' />
-                <span className='sr-only'>Decrease</span>
-              </Button>
-              <div className='flex-1 text-center'>
-                <div className='text-7xl font-bold tracking-tighter'>
-                  {goal}
-                </div>
-                <div className='text-[0.70rem] uppercase text-muted-foreground'>
-                  Calories/day
-                </div>
-              </div>
-              <Button
-                variant='outline'
-                size='icon'
-                className='h-8 w-8 shrink-0 rounded-full'
-                onClick={() => onClick(10)}
-                disabled={goal >= 400}
-              >
-                <PlusIcon className='h-4 w-4' />
-                <span className='sr-only'>Increase</span>
-              </Button>
-            </div>
+            <div className='flex items-center justify-center space-x-2'></div>
           </div>
           <DrawerFooter>
             <Button>Submit</Button>
