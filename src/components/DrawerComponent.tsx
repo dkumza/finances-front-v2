@@ -37,18 +37,18 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
         <Button>{title}</Button>
       </DrawerTrigger>
       <DrawerContent
-        style={{ marginLeft: `${innerWidth - 700}px` }}
-        className='rounded-none '
+        style={{ marginLeft: `${innerWidth - 635}px` }}
+        className='rounded-none flex items-center'
       >
-        <div className='m-6 min-w-max border border-green-600'>
-          <DrawerHeader>
+        <div className='w-[352px] border border-green-600 p-0'>
+          <DrawerHeader className='px-0'>
             <DrawerTitle>Add New Transaction</DrawerTitle>
             <DrawerDescription>Set your daily activity goal.</DrawerDescription>
           </DrawerHeader>
           <div className='p-4 pb-0'>
             <div className='flex items-center justify-center space-x-2'></div>
           </div>
-          <DrawerFooter>
+          <DrawerFooter className='px-0'>
             <Button>Submit</Button>
             <DrawerClose asChild>
               <Button variant='outline'>Cancel</Button>
