@@ -1,6 +1,5 @@
 import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
-import { DateRange } from 'react-day-picker';
+import { format } from 'date-fns';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -11,14 +10,18 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
-export function CalendarDateRangePicker({
+export function DateRangePicker({
   className,
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const today = new Date();
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2023, 0, 20),
-    to: addDays(new Date(2023, 0, 20), 20),
+    //  default range - current month till today
+    from: new Date(today.getFullYear(), today.getMonth(), 1),
+    to: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
   });
+  // TODO do call to backend to get the date range and fetch the data of transactions
 
   return (
     <div className={cn('grid gap-2', className)}>

@@ -49,7 +49,6 @@ export const RecentTransactions: FC<RecentTransactionsProps> = ({ length }) => {
                 new Date(transaction.date).toISOString().split('T')[0]}
             </p>
             <p className='text-sm text-muted-foreground'>
-              {' '}
               {transaction.description}
             </p>
           </div>
