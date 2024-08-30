@@ -5,7 +5,7 @@ interface AuthHeaderProps {
   message: string;
 }
 
-export const AuthHeader: FC<AuthHeaderProps> = ({ title, message }) => {
+export const Header: FC<AuthHeaderProps> = ({ title, message }) => {
   return (
     <div className='w-96'>
       <h3 className='scroll-m-20 text-2xl font-semibold tracking-tight'>

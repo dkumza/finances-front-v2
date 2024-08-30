@@ -1,4 +1,4 @@
-import { AuthHeader } from '../AuthHeader';
+import { Header } from '@/components/Header';
 import { LoginForm } from './LoginForm';
 
 export const Login = () => {
@@ -7,7 +7,7 @@ export const Login = () => {
       <div className='flex flex-col justify-center align-middle'>
         <div className=''>
           {/* // TODO add quote of the day, next to login form!  */}
-          <AuthHeader
+          <Header
             title='Welcome back'
             message='Please enter your credentials'
           />

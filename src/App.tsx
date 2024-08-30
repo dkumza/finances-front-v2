@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Login } from './components/pages/auth/login/Login.tsx';
 import { tokenStatus } from './redux/actions/authActions.ts';
 import { logout } from './redux/slices/authSlice.ts';
-import { DashContainer } from './components/pages/auth/dashboard/DashContainer.tsx';
+import { DashContainer } from './components/pages/dashboard/DashContainer.tsx';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { ThemeProvider } from './context/ThemeCtx.tsx';
 
