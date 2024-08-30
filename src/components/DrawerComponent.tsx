@@ -5,12 +5,12 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { Header } from './Header';
+import { TransactionsForm } from './pages/transactions/TransactionsForm';
 interface DrawerComponentProps {
   title: string;
 }
@@ -37,19 +37,25 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
         <Button>{title}</Button>
       </DrawerTrigger>
       <DrawerContent
-        style={{ marginLeft: `${innerWidth - 635}px` }}
+        style={{ marginLeft: `${innerWidth - 444}px` }}
         className='rounded-none flex items-center'
       >
-        <div className='w-[352px] border border-green-600 p-0'>
-          <DrawerHeader className='px-0'>
-            <DrawerTitle>Add New Transaction</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+        <div className='w-[352px] '>
+          <DrawerHeader className='p-0'>
+            <Header
+              title='New Transaction'
+              message='Please enter transaction details'
+            />
           </DrawerHeader>
-          <div className='p-4 pb-0'>
-            <div className='flex items-center justify-center space-x-2'></div>
+          <div className=''>
+            <div
+              id='drawer-body'
+              className='flex items-center justify-center space-x-2'
+            >
+              <TransactionsForm />
+            </div>
           </div>
-          <DrawerFooter className='px-0'>
-            <Button>Submit</Button>
+          <DrawerFooter className='p-0 m-0'>
             <DrawerClose asChild>
               <Button variant='outline'>Cancel</Button>
             </DrawerClose>
