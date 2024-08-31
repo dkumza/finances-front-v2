@@ -44,7 +44,7 @@ type PopoverTriggerProps = ComponentPropsWithoutRef<typeof PopoverTrigger>;
 
 type TeamSwitcherProps = PopoverTriggerProps;
 
-export default function CustomSelect({ className }: TeamSwitcherProps) {
+export default function CustomPopoverSelect({ className }: TeamSwitcherProps) {
   const [open, setOpen] = useState(false);
   const [showNewTeamDialog, setShowNewTeamDialog] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team>(groups[0].teams[0]);

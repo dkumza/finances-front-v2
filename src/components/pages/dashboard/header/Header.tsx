@@ -1,15 +1,15 @@
 import { Search } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
-import CustomSelect from '@/components/customInputs/CustomSelect';
 import { UserNav } from './UserNav';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import CustomPopoverSelect from '@/components/customInputs/CustomPopoverSelect';
 
 export const Header = () => {
   return (
     <header className='sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6'>
       <nav className='flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6'>
-        <CustomSelect />
+        <CustomPopoverSelect />
       </nav>
 
       <div className='flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4'>
