@@ -66,10 +66,6 @@ export const TransactionsForm = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value='salary'>Salary</SelectItem>
-                    <SelectItem value='rent'>Rent</SelectItem>
-                    <SelectItem value='groceries'>Groceries</SelectItem>
-                    <SelectItem value='utilities'>Utilities</SelectItem>
-                    <SelectItem value='entertainment'>Entertainment</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -90,6 +86,7 @@ export const TransactionsForm = () => {
                   min={0}
                   step={0.01}
                   {...field}
+                  onFocus={(e) => e.target.select()}
                 />
               </FormControl>
               <FormMessage />

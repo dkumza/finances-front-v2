@@ -24,10 +24,15 @@ export const TransactionSchema = z.object({
       message: 'Category is required',
     }),
   amount: z
-    .number({
-      required_error: 'Amount is required.',
-    })
-    .positive('Amount must be greater than 0'),
+    .string({ message: 'Amount cannot be 0' })
+    .min(1, 'Amount is required')
+    .refine(
+      (value) => value !== null && !isNaN(Number(value)) && Number(value) > 0,
+      {
+        message: 'Amount must be a number greater than 0',
+      }
+    )
+    .transform((value) => Number(value)),
   description: z
     .string({
       required_error: 'Description is required.',
