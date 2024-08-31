@@ -5,11 +5,12 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Header } from './Header';
 import { TransactionsForm } from './pages/transactions/TransactionsForm';
 interface DrawerComponentProps {
   title: string;
@@ -42,10 +43,12 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
       >
         <div className='w-[352px] '>
           <DrawerHeader className='p-0'>
-            <Header
-              title='New Transaction'
-              message='Please enter transaction details'
-            />
+            <DrawerTitle className='text-2xl font-semibold tracking-tight p-0 m-0'>
+              New Transaction
+            </DrawerTitle>
+            <DrawerDescription className='border-none leading-7 [&:not(:first-child)]:mt-2 text-muted-foreground mb-2'>
+              Please enter transaction details
+            </DrawerDescription>
           </DrawerHeader>
           <div className=''>
             <div
@@ -55,7 +58,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
               <TransactionsForm />
             </div>
           </div>
-          <DrawerFooter className='p-0 m-0'>
+          <DrawerFooter className='p-0 mt-3'>
             <DrawerClose asChild>
               <Button variant='outline'>Cancel</Button>
             </DrawerClose>
