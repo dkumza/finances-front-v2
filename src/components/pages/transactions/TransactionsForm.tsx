@@ -1,4 +1,5 @@
 import { CustomFormSelect } from '@/components/customInputs/CustomFormSelect';
+import { DatePicker } from '@/components/customInputs/DatePicker';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -31,13 +32,18 @@ export const TransactionsForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-3 flex flex-col justify-center align-middle w-[350px]'
       >
-        <FormField
+        {/* <FormField
           control={form.control}
           name='category'
           render={({ field }) => (
-            <CustomFormSelect placeholder='Select a category' {...field} />
+            <FormItem>
+              <FormControl>
+                <CustomFormSelect placeholder='Select a category' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name='amount'
@@ -67,6 +73,18 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
+        {/* <FormField
+          control={form.control}
+          name='date'
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DatePicker {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
         <Button type='submit'>Login</Button>
       </form>
     </Form>

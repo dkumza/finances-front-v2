@@ -5,11 +5,12 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { Header } from './Header';
 import { TransactionsForm } from './pages/transactions/TransactionsForm';
 interface DrawerComponentProps {
   title: string;
@@ -41,11 +42,11 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
         className='rounded-none flex items-center'
       >
         <div className='w-[352px] '>
-          <DrawerHeader className='p-0'>
-            <Header
-              title='New Transaction'
-              message='Please enter transaction details'
-            />
+          <DrawerHeader className='p-0 mb-2'>
+            <DrawerTitle>New Transaction</DrawerTitle>
+            <DrawerDescription className='border-none'>
+              Please enter transaction details
+            </DrawerDescription>
           </DrawerHeader>
           <div className=''>
             <div

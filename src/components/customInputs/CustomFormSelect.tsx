@@ -1,4 +1,3 @@
-import { FormControl, FormItem, FormMessage } from '@/components/ui/form';
 import {
   Select,
   SelectContent,
@@ -19,13 +18,11 @@ export const CustomFormSelect: FC<CustomFormSelectProps> = ({
   placeholder,
 }) => {
   return (
-    <FormItem>
+    <>
       <Select onValueChange={onChange} defaultValue={value}>
-        <FormControl>
-          <SelectTrigger>
-            <SelectValue placeholder={placeholder} />
-          </SelectTrigger>
-        </FormControl>
+        <SelectTrigger>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
         <SelectContent>
           <SelectItem value='category' disabled>
             Select a category
@@ -33,7 +30,6 @@ export const CustomFormSelect: FC<CustomFormSelectProps> = ({
           <SelectItem value='salary'>Salary</SelectItem>
         </SelectContent>
       </Select>
-      <FormMessage />
-    </FormItem>
+    </>
   );
 };
