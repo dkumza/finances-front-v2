@@ -1,5 +1,10 @@
-import { CustomFormSelect } from '@/components/customInputs/CustomFormSelect';
-import { DatePicker } from '@/components/customInputs/DatePicker';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -10,8 +15,19 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { CalendarIcon } from 'lucide-react';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { useState } from 'react';
 
 export const TransactionsForm = () => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   // form state
   const form = useForm({
     // resolver: zodResolver(LoginSchema),
@@ -32,18 +48,29 @@ export const TransactionsForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-3 flex flex-col justify-center align-middle w-[350px]'
       >
-        {/* <FormField
+        <FormField
           control={form.control}
           name='category'
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <CustomFormSelect placeholder='Select a category' {...field} />
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={'Select Category'} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {/* // TODO  fetch cats from api */}
+                    <SelectItem value='salary'>Salary</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <FormField
           control={form.control}
           name='amount'
@@ -53,7 +80,8 @@ export const TransactionsForm = () => {
                 <Input
                   placeholder='Amount'
                   type='number'
-                  min={0.01}
+                  min={0}
+                  step={0.01}
                   {...field}
                 />
               </FormControl>
@@ -73,18 +101,50 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
           name='date'
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <DatePicker {...field} />
+                <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-full pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, 'PPP')
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className='w-auto p-0' align='start'>
+                    <Calendar
+                      mode='single'
+                      onSelect={(e) => {
+                        field.onChange(e);
+                        setIsCalendarOpen(false);
+                      }}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date('1900-01-01')
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
         <Button type='submit'>Login</Button>
       </form>
     </Form>
