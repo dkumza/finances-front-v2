@@ -18,6 +18,7 @@ interface DrawerComponentProps {
 
 export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
   const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -33,13 +34,13 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
   }, []);
 
   return (
-    <Drawer direction='right'>
+    <Drawer direction='right' open={drawerOpen} onOpenChange={setDrawerOpen}>
       <DrawerTrigger asChild>
-        <Button>{title}</Button>
+        <Button onClick={() => setDrawerOpen(true)}>{title}</Button>
       </DrawerTrigger>
       <DrawerContent
         style={{ marginLeft: `${innerWidth - 444}px` }}
-        className='rounded-none flex items-center'
+        className='rounded-none flex items-center overflow-auto'
       >
         <div className='w-[352px] '>
           <DrawerHeader className='p-0'>
@@ -55,7 +56,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
               id='drawer-body'
               className='flex items-center justify-center space-x-2'
             >
-              <TransactionsForm />
+              <TransactionsForm setDrawerOpen={setDrawerOpen} />
             </div>
           </div>
           <DrawerFooter className='p-0 mt-3'>

@@ -22,7 +22,7 @@ export function DashContainer() {
           <TabsContent value='overview' className='space-y-4'>
             <DashCards />
             <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
-              <Card className='col-span-4'>
+              <Card className='md:col-span-4'>
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
