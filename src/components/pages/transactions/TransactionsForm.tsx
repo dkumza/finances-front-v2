@@ -25,22 +25,25 @@ import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TransactionSchema } from '@/helpers/formSchemas';
 
 export const TransactionsForm = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  // form state
+
   const form = useForm({
-    // resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(TransactionSchema),
     defaultValues: {
       category: '',
-      amount: '',
+      amount: 0,
       description: '',
-      date: '',
+      date: new Date(),
     },
   });
 
-  const onSubmit = (values: any) => {
-    console.log('data', values);
+  const onSubmit = (value: z.infer<typeof TransactionSchema>) => {
+    console.log('value', value);
   };
   return (
     <Form {...form}>
@@ -62,8 +65,11 @@ export const TransactionsForm = () => {
                     <SelectValue placeholder={'Select Category'} />
                   </SelectTrigger>
                   <SelectContent>
-                    {/* // TODO  fetch cats from api */}
                     <SelectItem value='salary'>Salary</SelectItem>
+                    <SelectItem value='rent'>Rent</SelectItem>
+                    <SelectItem value='groceries'>Groceries</SelectItem>
+                    <SelectItem value='utilities'>Utilities</SelectItem>
+                    <SelectItem value='entertainment'>Entertainment</SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
