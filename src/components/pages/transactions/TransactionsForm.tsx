@@ -15,8 +15,10 @@ export const TransactionsForm = () => {
   const form = useForm({
     // resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: 'darius@home.lt',
-      password: '123456',
+      category: '',
+      amount: '',
+      description: '',
+      date: '',
     },
   });
 
@@ -31,14 +33,21 @@ export const TransactionsForm = () => {
       >
         <FormField
           control={form.control}
-          name='email'
+          name='category'
+          render={({ field }) => (
+            <CustomFormSelect placeholder='Select a category' {...field} />
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='amount'
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                {/* <Input placeholder='Email' type='email' {...field} /> */}
-                <CustomFormSelect
-                  placeholder='Select a category'
-                  type='category'
+                <Input
+                  placeholder='Amount'
+                  type='number'
+                  min={0.01}
                   {...field}
                 />
               </FormControl>
@@ -48,13 +57,12 @@ export const TransactionsForm = () => {
         />
         <FormField
           control={form.control}
-          name='password'
+          name='description'
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder='Password' type='password' {...field} />
+                <Input placeholder='Description' type='text' {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
