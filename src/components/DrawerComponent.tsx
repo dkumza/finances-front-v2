@@ -42,9 +42,11 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
         className='rounded-none flex items-center'
       >
         <div className='w-[352px] '>
-          <DrawerHeader className='p-0 mb-2'>
-            <DrawerTitle>New Transaction</DrawerTitle>
-            <DrawerDescription className='border-none'>
+          <DrawerHeader className='p-0'>
+            <DrawerTitle className='text-2xl font-semibold tracking-tight p-0 m-0'>
+              New Transaction
+            </DrawerTitle>
+            <DrawerDescription className='border-none leading-7 [&:not(:first-child)]:mt-2 text-muted-foreground mb-2'>
               Please enter transaction details
             </DrawerDescription>
           </DrawerHeader>
@@ -56,7 +58,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
               <TransactionsForm />
             </div>
           </div>
-          <DrawerFooter className='p-0 m-0'>
+          <DrawerFooter className='p-0 mt-3'>
             <DrawerClose asChild>
               <Button variant='outline'>Cancel</Button>
             </DrawerClose>

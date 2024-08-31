@@ -71,6 +71,7 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name='amount'
@@ -89,6 +90,7 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name='description'
@@ -101,6 +103,7 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name='date'
@@ -145,7 +148,9 @@ export const TransactionsForm = () => {
             </FormItem>
           )}
         />
-        <Button type='submit'>Login</Button>
+        <Button type='submit' className=''>
+          Add Transaction
+        </Button>
       </form>
     </Form>
   );
