@@ -33,7 +33,7 @@ export default function TransactionsTable2() {
     (state) => state.expenses.fetchedExpenses
   );
   return (
-    <Card className='col-span-3'>
+    <Card className='lg:col-span-3 col-span-4'>
       <CardHeader className='flex flex-row items-center'>
         <div className='grid gap-2'>
           <CardTitle>Recent Transactions</CardTitle>

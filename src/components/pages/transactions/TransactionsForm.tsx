@@ -24,13 +24,46 @@ import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TransactionSchema } from '@/helpers/formSchemas';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import axios from 'axios';
+import { createExpense } from '@/redux/actions/expensesActions';
+import { handleExpenses, handleUserExpenses } from '@/helpers/handleExpenses';
 
-export const TransactionsForm = () => {
+const CATS_URL = 'http://127.0.0.1:3000/expenses/categories';
+interface TransactionsFormProps {
+  setDrawerOpen: (value: boolean) => void;
+}
+
+export const TransactionsForm: FC<TransactionsFormProps> = ({
+  setDrawerOpen,
+}) => {
+  const dispatch = useAppDispatch();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [categories, setCategories] = useState<string[]>([]);
+
+  const token = useAppSelector((state) => state.login.token);
+
+  useEffect(() => {
+    axios
+      .get(CATS_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCategories(Object.values(response.data));
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
+  }, [token]);
+
+  // Get the current date to set as the default value for the date field
+  const nowDate = format(new Date(), 'yyyy-MM-dd');
 
   const form = useForm({
     resolver: zodResolver(TransactionSchema),
@@ -38,12 +71,31 @@ export const TransactionsForm = () => {
       category: '',
       amount: 0,
       description: '',
-      date: new Date(),
+      date: nowDate,
     },
   });
 
-  const onSubmit = (value: z.infer<typeof TransactionSchema>) => {
-    console.log('value', value);
+  const onSubmit = (values: z.infer<typeof TransactionSchema>) => {
+    console.log('value', values);
+
+    // fix the date format
+
+    dispatch(createExpense(values)).then((res) => {
+      // The createExpense action has been fulfilled
+      if (res.type === 'expenses/createExpense/fulfilled') {
+        // toast.success('Transaction added successfully');
+        // formik.resetForm();
+        handleUserExpenses();
+        handleExpenses();
+        setDrawerOpen(false);
+      }
+      // The createExpense action has been rejected
+      if (res.type !== 'expenses/createExpense/fulfilled') {
+        const errorMessage = `Failed to create expense. Type: ${res.type}`;
+        // toast.error('Failed to create expense');
+        throw new Error(errorMessage);
+      }
+    });
   };
   return (
     <Form {...form}>
@@ -65,7 +117,12 @@ export const TransactionsForm = () => {
                     <SelectValue placeholder={'Select Category'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value='salary'>Salary</SelectItem>
+                    {categories &&
+                      categories.map((cat, index) => (
+                        <SelectItem key={index} value={cat}>
+                          {cat}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -124,7 +181,7 @@ export const TransactionsForm = () => {
                         )}
                       >
                         {field.value ? (
-                          format(field.value, 'PPP')
+                          format(field.value, 'yyyy-MM-dd')
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -136,8 +193,12 @@ export const TransactionsForm = () => {
                     <Calendar
                       mode='single'
                       onSelect={(e) => {
-                        field.onChange(e);
-                        setIsCalendarOpen(false);
+                        if (e) {
+                          const formattedDate = format(e, 'yyyy-MM-dd'); // Format the selected date
+                          console.log('formattedDate', formattedDate);
+                          field.onChange(formattedDate); // Send formatted date to form state
+                          setIsCalendarOpen(false);
+                        }
                       }}
                       disabled={(date) =>
                         date > new Date() || date < new Date('1900-01-01')

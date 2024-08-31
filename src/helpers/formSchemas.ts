@@ -1,11 +1,14 @@
 import { z } from 'zod';
 
 const allowedCategories = [
-  'salary',
-  'rent',
-  'groceries',
-  'utilities',
-  'entertainment',
+  'Food',
+  'Health & Beauty',
+  'Home',
+  'Other Expenses',
+  'Salary',
+  'Savings',
+  'Shopping & Services',
+  'Transport',
 ] as const;
 
 type Category = (typeof allowedCategories)[number];
@@ -38,7 +41,9 @@ export const TransactionSchema = z.object({
       required_error: 'Description is required.',
     })
     .min(3, 'Description must be at least 3 characters long.'),
-  date: z.date({
-    required_error: 'Transaction date is required.',
-  }),
+  date: z
+    .string({
+      required_error: 'Transaction date is required.',
+    })
+    .min(1, 'Transaction date is required.'),
 });
