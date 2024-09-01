@@ -1,13 +1,28 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
-import { DashCards } from './overview/DashCards';
-import TransactionsTable2 from './overview/TransactionsTable2';
 import { DrawerComponent } from '@/components/DrawerComponent';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserNav } from './header/UserNav';
 import { DashSidebar } from './DashSidebar';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { OverviewPage } from './overview/OverviewPage';
 
 export function DashContainer() {
+  const location = useLocation();
+
+  const setPageTitle = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Overview';
+      case '/expenses':
+        return 'Expenses';
+      case '/income':
+        return 'Income';
+      case '/transactions':
+        return 'Transactions';
+      default:
+        return 'Overview';
+    }
+  };
+
   return (
     <div className='flex min-h-screen w-full flex-col'>
       {/* <Header /> */}
@@ -17,7 +32,10 @@ export function DashContainer() {
           <div className='flex items justify-between'>
             <div className='flex pt-6 pb-2  w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 '>
               <div className='flex items justify-between'>
-                <h2 className='text-2xl font-bold tracking-tight'>Overview</h2>
+                <h2 className='text-2xl font-bold tracking-tight flex gap-2 items-center'>
+                  {/* <Layers /> */}
+                  {setPageTitle()}
+                </h2>
               </div>
               <form className='ml-auto flex-1 sm:flex-initial'>
                 {/* <div className='relative'>
@@ -36,25 +54,10 @@ export function DashContainer() {
               <UserNav />
             </div>
           </div>
-          <Tabs defaultValue='overview' className='space-y-4'>
-            {/* // TODO add logic to fetch transactions by selecting menu option */}
-            {/* <DashMenu /> */}
-            <TabsContent value='overview' className='space-y-4'>
-              <DashCards />
-              <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
-                <Card className='md:col-span-4'>
-                  <CardHeader>
-                    <CardTitle>Overview</CardTitle>
-                  </CardHeader>
-                  {/* <CardContent className='pl-2'>
-                  <Overview />
-                </CardContent> */}
-                </Card>
 
-                <TransactionsTable2 />
-              </div>
-            </TabsContent>
-          </Tabs>
+          <Routes>
+            <Route path='/' element={<OverviewPage />} />
+          </Routes>
         </div>
       </div>
     </div>
