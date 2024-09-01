@@ -33,11 +33,11 @@ export default function TransactionsTable2() {
     (state) => state.expenses.fetchedExpenses
   );
   return (
-    <Card className='lg:col-span-3 col-span-4'>
+    <Card className='lg:col-span-6 col-span-4'>
       <CardHeader className='flex flex-row items-center pb-2'>
-        <div className='flex justify-between w-full items-center align-middle b'>
+        <div className='flex justify-between w-full items-center align-middle'>
           <div className='grid '>
-            <CardTitle>Recent Transactions</CardTitle>
+            <CardTitle className='pb-1.5'>Recent Transactions</CardTitle>
             {transactions.length > 0 && (
               <CardDescription>
                 {`You made ${transactions.length} ${
@@ -47,16 +47,18 @@ export default function TransactionsTable2() {
             )}
             {transactions.length === 0 && (
               <CardDescription>
-                {`You have no transactions this month.`}
+                {`You have no transactions yet.`}
               </CardDescription>
             )}
           </div>
-          <Button asChild size='sm' className='ml-auto gap-1'>
-            <Link to={'/transactions'}>
-              View All
-              <ArrowUpRight className='h-4 w-4' />
-            </Link>
-          </Button>
+          {transactions.length > 0 && (
+            <Button asChild size='sm' className='ml-auto gap-1'>
+              <Link to={'/transactions'}>
+                View All
+                <ArrowUpRight className='h-4 w-4' />
+              </Link>
+            </Button>
+          )}
         </div>
       </CardHeader>
       <CardContent>

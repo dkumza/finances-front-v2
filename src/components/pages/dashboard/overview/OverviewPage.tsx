@@ -1,7 +1,7 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { DashCards } from './DashCards';
 import TransactionsTable2 from './TransactionsTable2';
+import { OverviewDonut } from './chart/OverviewDonut';
 
 export const OverviewPage = () => {
   return (
@@ -11,17 +11,9 @@ export const OverviewPage = () => {
         {/* <DashMenu /> */}
         <TabsContent value='week' className='space-y-4'>
           <DashCards />
-          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
-            <Card className='md:col-span-4'>
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-              </CardHeader>
-              {/* <CardContent className='pl-2'>
-        <Overview />
-      </CardContent> */}
-            </Card>
-
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-10'>
             <TransactionsTable2 />
+            <OverviewDonut />
           </div>
         </TabsContent>
       </Tabs>

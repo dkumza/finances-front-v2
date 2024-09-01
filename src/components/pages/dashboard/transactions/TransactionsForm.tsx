@@ -55,6 +55,7 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
         },
       })
       .then((response) => {
+        console.log('response: ', response.data);
         setCategories(Object.values(response.data));
       })
       .catch((error) => {
@@ -76,10 +77,6 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
   });
 
   const onSubmit = (values: z.infer<typeof TransactionSchema>) => {
-    console.log('value', values);
-
-    // fix the date format
-
     dispatch(createExpense(values)).then((res) => {
       // The createExpense action has been fulfilled
       if (res.type === 'expenses/createExpense/fulfilled') {
