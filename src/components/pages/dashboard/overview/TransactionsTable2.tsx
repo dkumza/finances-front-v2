@@ -34,7 +34,7 @@ export default function TransactionsTable2() {
   );
   return (
     <Card className='lg:col-span-3 col-span-4'>
-      <CardHeader className='flex flex-row items-center'>
+      <CardHeader className='flex flex-row items-center pb-2'>
         <div className='grid gap-2'>
           <CardTitle>Recent Transactions</CardTitle>
           {transactions.length > 0 && (
@@ -62,7 +62,7 @@ export default function TransactionsTable2() {
           <TableHeader>
             <TableRow>
               <TableHead>Category</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>Description</TableHead>
               <TableHead className='text-right'>Amount</TableHead>
             </TableRow>
           </TableHeader>
@@ -72,13 +72,14 @@ export default function TransactionsTable2() {
                 <TableRow key={transaction._id}>
                   <TableCell>
                     <div className='font-medium'>{transaction.category}</div>
-                    <div className='hidden text-sm text-muted-foreground md:inline'>
+                    {/* <div className='hidden text-sm text-muted-foreground md:inline'>
                       {transaction.description}
-                    </div>
+                    </div> */}
                   </TableCell>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
-                    {transaction.date &&
-                      new Date(transaction.date).toISOString().split('T')[0]}
+                    {transaction.description}
+                    {/* {transaction.date &&
+                      new Date(transaction.date).toISOString().split('T')[0]} */}
                   </TableCell>
                   <TableCell className='text-right'>
                     {transaction.amount} €
