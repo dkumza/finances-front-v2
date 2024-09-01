@@ -28,7 +28,7 @@ const colors = [
 ];
 
 export function OverviewDonut() {
-  const { totalExpense, allExpenses, transactions } = useAppSelector(
+  const { totalExpense, allExpenses } = useAppSelector(
     (state) => state.expenses.fetchedExpenses
   );
 
@@ -56,16 +56,23 @@ export function OverviewDonut() {
 
   return (
     <Card className='md:col-span-4'>
-      <CardHeader className='flex justify-center align-middle'>
-        <CardTitle className=''>Overview</CardTitle>
-        {transactions.length === 0 && (
-          <CardDescription>{`You have no transactions yet.`}</CardDescription>
+      <CardHeader className='flex justify-center align-middle pb-2'>
+        <CardTitle className=''>Overview Expenses</CardTitle>
+        {allExpenses.length === 0 && (
+          <CardDescription>{`You have no expenses yet.`}</CardDescription>
+        )}
+        {allExpenses.length > 0 && (
+          <CardDescription>
+            {`You made ${allExpenses.length} ${
+              allExpenses.length > 1 ? 'expenses' : 'expense'
+            } this month.`}
+          </CardDescription>
         )}
       </CardHeader>
-      <CardContent className='flex-1 pb-0'>
+      <CardContent className='flex-1 pb-0 p-0 m-0 justify-center align-middle'>
         <ChartContainer
           config={chartConfig}
-          className='mx-auto aspect-square max-h-[430px]'
+          className='mx-auto aspect-square max-h-[500px]'
         >
           <PieChart>
             <ChartTooltip

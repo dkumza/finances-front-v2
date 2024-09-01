@@ -61,7 +61,7 @@ export default function TransactionsTable2() {
           )}
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className=''>
         <Table>
           <TableHeader>
             <TableRow>
