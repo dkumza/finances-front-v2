@@ -35,27 +35,29 @@ export default function TransactionsTable2() {
   return (
     <Card className='lg:col-span-3 col-span-4'>
       <CardHeader className='flex flex-row items-center pb-2'>
-        <div className='grid gap-2'>
-          <CardTitle>Recent Transactions</CardTitle>
-          {transactions.length > 0 && (
-            <CardDescription>
-              {`You made ${transactions.length} ${
-                transactions.length > 1 ? 'transactions' : 'transaction'
-              } this month.`}
-            </CardDescription>
-          )}
-          {transactions.length === 0 && (
-            <CardDescription>
-              {`You have no transactions this month.`}
-            </CardDescription>
-          )}
+        <div className='flex justify-between w-full items-center align-middle b'>
+          <div className='grid '>
+            <CardTitle>Recent Transactions</CardTitle>
+            {transactions.length > 0 && (
+              <CardDescription>
+                {`You made ${transactions.length} ${
+                  transactions.length > 1 ? 'transactions' : 'transaction'
+                } this month.`}
+              </CardDescription>
+            )}
+            {transactions.length === 0 && (
+              <CardDescription>
+                {`You have no transactions this month.`}
+              </CardDescription>
+            )}
+          </div>
+          <Button asChild size='sm' className='ml-auto gap-1'>
+            <Link to={'/transactions'}>
+              View All
+              <ArrowUpRight className='h-4 w-4' />
+            </Link>
+          </Button>
         </div>
-        <Button asChild size='sm' className='ml-auto gap-1'>
-          <Link to={''}>
-            View All
-            <ArrowUpRight className='h-4 w-4' />
-          </Link>
-        </Button>
       </CardHeader>
       <CardContent>
         <Table>

@@ -11,7 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { TransactionsForm } from './pages/transactions/TransactionsForm';
+import { TransactionsForm } from './pages/dashboard/transactions/TransactionsForm';
 interface DrawerComponentProps {
   title: string;
 }

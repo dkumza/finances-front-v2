@@ -4,6 +4,7 @@ import { UserNav } from './header/UserNav';
 import { DashSidebar } from './DashSidebar';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { OverviewPage } from './overview/OverviewPage';
+import { TransactionsPage } from './transactions/TransactionsPage';
 
 export function DashContainer() {
   const location = useLocation();
@@ -57,6 +58,7 @@ export function DashContainer() {
 
           <Routes>
             <Route path='/' element={<OverviewPage />} />
+            <Route path='/transactions' element={<TransactionsPage />} />
           </Routes>
         </div>
       </div>

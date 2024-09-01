@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { Activity, DiamondPercent, DollarSign, Layers } from 'lucide-react';
+import { Activity, DiamondPercent, Layers } from 'lucide-react';
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -22,37 +22,17 @@ export const DashSidebar: FC<DashSidebarProps> = ({ className }) => {
           </div>
 
           {/* Menu items */}
-          <Link to='/'>
-            <Button
-              variant={location.pathname === '/' ? 'default' : 'ghost'}
-              className={cn('w-full justify-start flex gap-1')}
-            >
-              <Layers className='h-4' />
-              Overview
-            </Button>
-          </Link>
           <h2 className='my-2 px-4 text-lg font-semibold tracking-tight'>
             Transactions
           </h2>
           <div className='flex flex-col gap-1'>
-            <Link to='/expenses'>
+            <Link to='/'>
               <Button
-                variant={
-                  location.pathname === '/expenses' ? 'default' : 'ghost'
-                }
+                variant={location.pathname === '/' ? 'default' : 'ghost'}
                 className={cn('w-full justify-start flex gap-1')}
               >
                 <Layers className='h-4' />
-                Expenses
-              </Button>
-            </Link>
-            <Link to='/income'>
-              <Button
-                variant={location.pathname === '/income' ? 'default' : 'ghost'}
-                className={cn('w-full justify-start flex gap-1')}
-              >
-                <DollarSign className='h-4' />
-                Income
+                Overview
               </Button>
             </Link>
             <Link to='/transactions'>
@@ -67,6 +47,29 @@ export const DashSidebar: FC<DashSidebarProps> = ({ className }) => {
               </Button>
             </Link>
           </div>
+
+          {/* <div className='flex flex-col gap-1'>
+            <Link to='/expenses'>
+              <Button
+                variant={
+                  location.pathname === '/expenses' ? 'default' : 'ghost'
+                }
+                className={cn('w-full justify-start flex gap-1')}
+              >
+                <Layers className='h-4' />
+                Expenses
+              </Button>
+            </Link>
+            <Link to='/incomes'>
+              <Button
+                variant={location.pathname === '/incomes' ? 'default' : 'ghost'}
+                className={cn('w-full justify-start flex gap-1')}
+              >
+                <DollarSign className='h-4' />
+                Incomes
+              </Button>
+            </Link>
+          </div> */}
         </div>
       </Card>
     </div>
