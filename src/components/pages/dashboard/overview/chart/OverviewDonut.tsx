@@ -7,25 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ChartLegend, ChartLegendContent } from '@/components/ui/chart';
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { chartConfig } from './donutConfig';
+import { chartConfig, colors } from './donutConfig';
 import { useAppSelector } from '@/redux/hooks';
 
 interface ExpenseAccumulator {
   [category: string]: number;
 }
-
-const colors = [
-  'var(--color-Food)',
-  'var(--color-Home)',
-  'var(--color-Other)',
-  'var(--color-Shopping)',
-  // 'var(--color-other)',
-];
 
 export function OverviewDonut() {
   const { totalExpense, allExpenses } = useAppSelector(
@@ -45,6 +38,8 @@ export function OverviewDonut() {
     {}
   );
 
+  console.log('groupedExpenses: ', groupedExpenses);
+
   // Convert grouped expenses to chart data, by mapping over the object entries and adding a fill color
   const chartData = Object.entries(groupedExpenses).map(
     ([category, amount], index) => ({
@@ -53,6 +48,7 @@ export function OverviewDonut() {
       fill: colors[index % colors.length],
     })
   );
+  console.log('chartData: ', chartData);
 
   return (
     <Card className='md:col-span-4'>
@@ -69,10 +65,10 @@ export function OverviewDonut() {
           </CardDescription>
         )}
       </CardHeader>
-      <CardContent className='flex-1 pb-0 p-0 m-0 justify-center align-middle'>
+      <CardContent className='flex-1 justify-center align-middle'>
         <ChartContainer
           config={chartConfig}
-          className='mx-auto aspect-square max-h-[500px]'
+          className='mx-auto aspect-square max-h-[250px]'
         >
           <PieChart>
             <ChartTooltip
@@ -83,7 +79,7 @@ export function OverviewDonut() {
               data={chartData}
               dataKey='amount'
               nameKey='category'
-              innerRadius={100}
+              innerRadius={60}
               strokeWidth={5}
             >
               <Label
@@ -116,6 +112,7 @@ export function OverviewDonut() {
                 }}
               />
             </Pie>
+            <ChartLegend content={<ChartLegendContent />} />
           </PieChart>
         </ChartContainer>
       </CardContent>
