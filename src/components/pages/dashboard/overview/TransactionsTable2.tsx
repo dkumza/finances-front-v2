@@ -67,6 +67,7 @@ export default function TransactionsTable2() {
             <TableRow>
               <TableHead>Category</TableHead>
               <TableHead>Description</TableHead>
+              <TableHead>Date</TableHead>
               <TableHead className='text-right'>Amount</TableHead>
             </TableRow>
           </TableHeader>
@@ -84,6 +85,11 @@ export default function TransactionsTable2() {
                     {transaction.description}
                     {/* {transaction.date &&
                       new Date(transaction.date).toISOString().split('T')[0]} */}
+                  </TableCell>
+                  <TableCell className='table-cell text-sm text-muted-foreground'>
+                    {/* {transaction.description} */}
+                    {transaction.date &&
+                      new Date(transaction.date).toISOString().split('T')[0]}
                   </TableCell>
                   <TableCell className='text-right'>
                     {transaction.amount} €
