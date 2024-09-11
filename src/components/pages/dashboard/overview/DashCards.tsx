@@ -24,7 +24,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>{balance} €</div>
+          <div className='text-2xl font-bold'>{balance || 0} €</div>
           {/* <p className='text-xs text-muted-foreground'>
             +20.1% from last month
           </p> */}
@@ -48,7 +48,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>{totalExpense} €</div>
+          <div className='text-2xl font-bold'>{totalExpense || 0} €</div>
         </CardContent>
       </Card>
       <Card>
@@ -68,7 +68,7 @@ export const DashCards = () => {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>{totalIncome} €</div>
+          <div className='text-2xl font-bold'>{totalIncome || 0} €</div>
         </CardContent>
       </Card>
       <Card>

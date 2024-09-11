@@ -1,13 +1,15 @@
 import { z } from 'zod';
 
 const allowedCategories = [
+  'Beauty',
   'Food',
-  'Health & Beauty',
+  'Health',
   'Home',
-  'Other Expenses',
+  'Other',
   'Salary',
   'Savings',
-  'Shopping & Services',
+  'Services',
+  'Shopping',
   'Transport',
 ] as const;
 

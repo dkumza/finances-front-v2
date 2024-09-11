@@ -54,7 +54,6 @@ export const fetchUserExpenses = createAsyncThunk<
       headers: { Authorization: `Bearer ${token}` },
     });
     const { data } = response;
-    console.log('data: ', data);
     return data;
   } catch (error) {
     console.error('error: ', error);
