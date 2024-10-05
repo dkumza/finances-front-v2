@@ -21,7 +21,7 @@ export const Header = () => {
             </div> */}
         </form>
         <div className='flex items-center space-x-2'>
-          <DrawerComponent title={'New Transaction'} />
+          <DrawerComponent title='New Transaction' />
         </div>
         <ThemeSwitcher />
         <UserNav />
