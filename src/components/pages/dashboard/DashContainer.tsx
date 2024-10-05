@@ -15,7 +15,7 @@ export function DashContainer() {
   };
 
   return (
-    <div className='flex min-h-screen w-full flex-col'>
+    <div className='flex min-h-screen w-full flex-col container'>
       {/* <Header /> */}
       <div className='flex'>
         {/* <DashSidebar className='hidden lg:block' /> */}
