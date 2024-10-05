@@ -40,53 +40,22 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Description' />,
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <span className='w-[180px] max-w-[500px]  font-medium'>
-            {row.getValue('description')}
-          </span>
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <div className='md:w-[500px] w-auto  font-medium'>{row.getValue('description')}</div>
+    ),
   },
   {
     accessorKey: 'category',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Category' />,
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <span className='truncate font-medium'>{row.getValue('category')}</span>
-        </div>
-      );
-    },
+    cell: ({ row }) => <div className='font-medium '>{row.getValue('category')}</div>,
   },
   {
     accessorKey: 'amount',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Amount' />,
-    cell: ({ row }) => {
-      return (
-        <div className='flex space-x-2'>
-          <span className=' truncate font-medium'>{row.getValue('amount')} EUR</span>
-        </div>
-      );
-    },
+    cell: ({ row }) => <span className=' font-medium '>{row.getValue('amount')} EUR</span>,
   },
   {
     id: 'actions',
-    // header: ({ column }) => {
-    //   return (
-    //     <div className='flex justify-end min-w-min border border-red-500'>
-    //       {/* <DataTableColumnHeader column={column} title='Action' /> */}
-    //     </div>
-    //   );
-    // },
-    cell: () => {
-      return (
-        <div className='flex justify-end'>
-          <DataTableRowActions />
-        </div>
-      );
-    },
+    cell: () => <DataTableRowActions />,
   },
 ];
