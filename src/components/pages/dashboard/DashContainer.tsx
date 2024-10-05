@@ -1,27 +1,17 @@
 import { DrawerComponent } from '@/components/DrawerComponent';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserNav } from './header/UserNav';
-import { useLocation } from 'react-router-dom';
 import { OverviewPage } from './overview/OverviewPage';
 import { TransactionsPage } from './transactions/TransactionsPage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useState } from 'react';
 
 export function DashContainer() {
-  const location = useLocation();
+  const [title, setTitle] = useState('Overview');
+  // const location = useLocation();
 
-  const setPageTitle = () => {
-    switch (location.pathname) {
-      case '/':
-        return 'Overview';
-      case '/expenses':
-        return 'Expenses';
-      case '/income':
-        return 'Income';
-      case '/transactions':
-        return 'Transactions';
-      default:
-        return 'Overview';
-    }
+  const setPageTitle = (value: string) => {
+    setTitle(value);
   };
 
   return (
@@ -35,7 +25,7 @@ export function DashContainer() {
               <div className='flex items justify-between gap-8'>
                 <h2 className='text-2xl font-bold tracking-tight flex gap-2 items-center'>
                   {/* <Layers /> */}
-                  {setPageTitle()}
+                  {title}
                 </h2>
               </div>
 
@@ -59,8 +49,12 @@ export function DashContainer() {
 
           <Tabs defaultValue='overview' className='space-y-4'>
             <TabsList>
-              <TabsTrigger value='overview'>Overview</TabsTrigger>
-              <TabsTrigger value='transactions'>Transactions</TabsTrigger>
+              <TabsTrigger value='overview' onClick={() => setPageTitle('Overview')}>
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value='transactions' onClick={() => setPageTitle('Transactions')}>
+                Transactions
+              </TabsTrigger>
             </TabsList>
             <TabsContent value='overview' className='space-y-4'>
               <OverviewPage />
@@ -69,11 +63,6 @@ export function DashContainer() {
               <TransactionsPage />
             </TabsContent>
           </Tabs>
-
-          {/* <Routes> */}
-          {/* <Route path='/' element={<OverviewPage />} /> */}
-          {/* <Route path='/transactions' element={<TransactionsPage />} /> */}
-          {/* </Routes> */}
         </div>
       </div>
     </div>
