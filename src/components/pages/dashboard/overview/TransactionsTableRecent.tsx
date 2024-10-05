@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 import { handleExpenses, handleUserExpenses } from '@/helpers/handleExpenses';
 import { useAppSelector } from '@/redux/hooks';
 
-export default function TransactionsTable2() {
+export default function TransactionsTableRecent() {
   useEffect(() => {
     handleUserExpenses();
     handleExpenses();
@@ -67,29 +67,20 @@ export default function TransactionsTable2() {
                 <TableRow key={transaction._id}>
                   <TableCell>
                     <div className='font-medium'>{transaction.category}</div>
-                    {/* <div className='hidden text-sm text-muted-foreground md:inline'>
-                      {transaction.description}
-                    </div> */}
                   </TableCell>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
                     {transaction.description}
-                    {/* {transaction.date &&
-                      new Date(transaction.date).toISOString().split('T')[0]} */}
                   </TableCell>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
-                    {/* {transaction.description} */}
                     {transaction.date && new Date(transaction.date).toISOString().split('T')[0]}
                   </TableCell>
                   <TableCell className='text-right'>{transaction.amount} €</TableCell>
                 </TableRow>
-                //    <TableCell colSpan={transactions.length} className='h-24 text-center'>
-                //    No results.
-                //  </TableCell>
               ))
             ) : (
               <TableRow>
                 <TableCell colSpan={4} className='h-24 text-center'>
-                  No results.
+                  No transactions.
                 </TableCell>
               </TableRow>
             )}
