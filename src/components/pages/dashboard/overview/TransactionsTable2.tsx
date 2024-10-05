@@ -3,13 +3,7 @@
 import { ArrowUpRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -29,11 +23,9 @@ export default function TransactionsTable2() {
     handleExpenses();
   }, []);
 
-  const { transactions } = useAppSelector(
-    (state) => state.expenses.fetchedExpenses
-  );
+  const { transactions } = useAppSelector((state) => state.expenses.fetchedExpenses);
   return (
-    <Card className='lg:col-span-6 col-span-4'>
+    <Card className='lg:col-span-6 col-span-6'>
       <CardHeader className='flex flex-row items-center pb-2'>
         <div className='flex justify-between w-full items-center align-middle'>
           <div className='grid '>
@@ -46,9 +38,7 @@ export default function TransactionsTable2() {
               </CardDescription>
             )}
             {transactions.length === 0 && (
-              <CardDescription>
-                {`You have no transactions yet.`}
-              </CardDescription>
+              <CardDescription>{`You have no transactions yet.`}</CardDescription>
             )}
           </div>
           {transactions.length > 0 && (
@@ -88,12 +78,9 @@ export default function TransactionsTable2() {
                   </TableCell>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
                     {/* {transaction.description} */}
-                    {transaction.date &&
-                      new Date(transaction.date).toISOString().split('T')[0]}
+                    {transaction.date && new Date(transaction.date).toISOString().split('T')[0]}
                   </TableCell>
-                  <TableCell className='text-right'>
-                    {transaction.amount} €
-                  </TableCell>
+                  <TableCell className='text-right'>{transaction.amount} €</TableCell>
                 </TableRow>
               ))}
           </TableBody>
