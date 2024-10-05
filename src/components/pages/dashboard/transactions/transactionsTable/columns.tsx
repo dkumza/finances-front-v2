@@ -4,9 +4,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
-import { Task } from './schema';
+import { Transaction } from '@/redux/slices/expensesSlice';
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Transaction>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -32,7 +32,7 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Date' />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Created At' />,
     cell: ({ row }) => <div className=''>{row.getValue('createdAt')}</div>,
     // enableSorting: false,
     enableHiding: false,

@@ -62,7 +62,7 @@ export default function TransactionsTable2() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {transactions &&
+            {transactions && transactions.length > 0 ? (
               transactions.slice(0, 10).map((transaction) => (
                 <TableRow key={transaction._id}>
                   <TableCell>
@@ -82,7 +82,17 @@ export default function TransactionsTable2() {
                   </TableCell>
                   <TableCell className='text-right'>{transaction.amount} €</TableCell>
                 </TableRow>
-              ))}
+                //    <TableCell colSpan={transactions.length} className='h-24 text-center'>
+                //    No results.
+                //  </TableCell>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={4} className='h-24 text-center'>
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </CardContent>

@@ -1,16 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  createExpense,
-  fetchExpenses,
-  fetchUserExpenses,
-} from '../actions/expensesActions';
+import { createExpense, fetchExpenses, fetchUserExpenses } from '../actions/expensesActions';
 
 export interface Transaction {
   _id: string;
   category: string;
   description: string;
   date: string;
-  amount: null;
+  amount: number;
   createdAt: string;
 }
 
@@ -46,7 +42,7 @@ export const initialState: ExpenseState = {
         category: '',
         description: '',
         date: '',
-        amount: null,
+        amount: 0,
         createdAt: '',
       },
     ],
@@ -65,7 +61,7 @@ export const initialState: ExpenseState = {
         category: '',
         description: '',
         date: '',
-        amount: null,
+        amount: 0,
         createdAt: '',
       },
     ],
@@ -130,7 +126,6 @@ export const expensesSlice = createSlice({
   },
 });
 
-export const { setUserExpenses, setExpenses, setExpenseToDelete } =
-  expensesSlice.actions;
+export const { setUserExpenses, setExpenses, setExpenseToDelete } = expensesSlice.actions;
 
 export default expensesSlice.reducer;
