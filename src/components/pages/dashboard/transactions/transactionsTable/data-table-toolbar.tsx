@@ -1,4 +1,4 @@
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
@@ -10,10 +10,15 @@ import { DataTableViewOptions } from './data-table-view-options';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  deleteSelectedRows: () => void;
 }
 
-export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({
+  table,
+  deleteSelectedRows,
+}: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const selectedRowsCount = Object.keys(table.getState().rowSelection).length;
 
   return (
     <div className='flex items-center justify-between'>
@@ -43,6 +48,12 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           </Button>
         )}
       </div>
+      {selectedRowsCount > 0 && (
+        <Button variant='outline' size='sm' className='mr-2' onClick={deleteSelectedRows}>
+          <TrashIcon className=' h-4 w-4' />
+          Delete Selected
+        </Button>
+      )}
       <DataTableViewOptions table={table} />
     </div>
   );

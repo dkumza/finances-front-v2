@@ -32,11 +32,35 @@ export interface DataTableProps {
   data: Transaction[];
 }
 
-export function TransactionsTable({ columns, data }: DataTableProps) {
+export function TransactionsTable({ columns, data: initialData }: DataTableProps) {
+  const [data, setData] = useState(initialData);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
+
+  function deleteSelectedRows() {
+    // Get the selected row indices
+    const selectedIndices = Object.keys(rowSelection).map(Number);
+
+    // Get the selected row data and IDs
+    const selectedRows = selectedIndices.map((index) => data[index]);
+    const selectedIds = selectedRows.map((row) => row._id);
+
+    console.log('Selected row data:', selectedRows);
+    console.log('Selected row IDs:', selectedIds);
+
+    // TODO deleteRowsFromDatabase(selectedIds);
+
+    // Filter out the selected rows from the local data
+    const newData = data.filter((row) => !selectedIds.includes(row._id));
+
+    // Update the local state
+    setData(newData);
+    setRowSelection({});
+
+    return { selectedRows, selectedIds };
+  }
 
   const table = useReactTable({
     data,
@@ -62,7 +86,7 @@ export function TransactionsTable({ columns, data }: DataTableProps) {
 
   return (
     <div className='space-y-4'>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} deleteSelectedRows={deleteSelectedRows} />
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
