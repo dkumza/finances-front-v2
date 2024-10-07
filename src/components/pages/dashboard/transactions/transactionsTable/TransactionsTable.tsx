@@ -1,5 +1,4 @@
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -24,22 +23,23 @@ import {
 
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Transaction } from '@/redux/slices/expensesSlice';
+import { Columns } from './columns';
 
 export interface DataTableProps {
-  columns: ColumnDef<Transaction>[];
+  // columns: ColumnDef<Transaction>[];
   data: Transaction[];
 }
 
-export function TransactionsTable({ columns, data: initialData }: DataTableProps) {
+export function TransactionsTable({ data: initialData }: DataTableProps) {
   const [data, setData] = useState(initialData);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  function deleteSelectedRows() {
+  const deleteSelectedRows = useCallback(() => {
     // Get the selected row indices
     const selectedIndices = Object.keys(rowSelection).map(Number);
 
@@ -58,9 +58,23 @@ export function TransactionsTable({ columns, data: initialData }: DataTableProps
     // Update the local state
     setData(newData);
     setRowSelection({});
+  }, [data, rowSelection]);
 
-    return { selectedRows, selectedIds };
-  }
+  const handleEdit = useCallback((transaction: Transaction) => {
+    // Implement your edit logic here
+    console.log('Editing transaction:', transaction);
+  }, []);
+
+  const handleDelete = useCallback((transaction: Transaction) => {
+    // Implement your delete logic here
+    console.log('Deleting transaction:', transaction);
+    setData((prevData) => prevData.filter((t) => t._id !== transaction._id));
+  }, []);
+
+  const columns = useMemo(
+    () => Columns({ onEdit: handleEdit, onDelete: handleDelete }),
+    [handleEdit, handleDelete]
+  );
 
   const table = useReactTable({
     data,

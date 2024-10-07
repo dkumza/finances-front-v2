@@ -1,4 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+import { Transaction } from '@/redux/slices/expensesSlice';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -8,7 +10,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export function DataTableRowActions() {
+interface DataTableRowActionsProps {
+  row: Row<Transaction>;
+  onEdit: (transaction: Transaction) => void;
+  onDelete: (transaction: Transaction) => void;
+}
+
+export function DataTableRowActions({ row, onEdit, onDelete }: DataTableRowActionsProps) {
+  const transaction = row.original;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,8 +28,8 @@ export function DataTableRowActions() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onEdit(transaction)}>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onDelete(transaction)}>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

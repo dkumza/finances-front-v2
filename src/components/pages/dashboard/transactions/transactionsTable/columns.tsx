@@ -6,7 +6,12 @@ import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
 import { Transaction } from '@/redux/slices/expensesSlice';
 
-export const columns: ColumnDef<Transaction>[] = [
+interface ColumnDefinitionProps {
+  onEdit: (transaction: Transaction) => void;
+  onDelete: (transaction: Transaction) => void;
+}
+
+export const Columns = ({ onEdit, onDelete }: ColumnDefinitionProps): ColumnDef<Transaction>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -57,6 +62,6 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     id: 'actions',
-    cell: () => <DataTableRowActions />,
+    cell: ({ row }) => <DataTableRowActions row={row} onEdit={onEdit} onDelete={onDelete} />,
   },
 ];
