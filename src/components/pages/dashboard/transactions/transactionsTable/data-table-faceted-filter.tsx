@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ComponentType } from 'react';
 import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Column } from '@tanstack/react-table';
 
@@ -23,7 +23,7 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   options: {
     label: string;
     value: string;
-    icon?: React.ComponentType<{ className?: string }>;
+    icon?: ComponentType<{ className?: string }>;
   }[];
 }
 
