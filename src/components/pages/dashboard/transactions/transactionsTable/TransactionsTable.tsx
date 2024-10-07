@@ -23,7 +23,7 @@ import {
 
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Transaction } from '@/redux/slices/expensesSlice';
 import { Columns } from './columns';
 
@@ -71,10 +71,8 @@ export function TransactionsTable({ data: initialData }: DataTableProps) {
     setData((prevData) => prevData.filter((t) => t._id !== transaction._id));
   }, []);
 
-  const columns = useMemo(
-    () => Columns({ onEdit: handleEdit, onDelete: handleDelete }),
-    [handleEdit, handleDelete]
-  );
+  // Define the columns and pass the edit and delete handlers
+  const columns = Columns({ onEdit: handleEdit, onDelete: handleDelete });
 
   const table = useReactTable({
     data,
