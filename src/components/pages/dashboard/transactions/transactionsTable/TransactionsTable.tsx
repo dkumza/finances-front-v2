@@ -27,7 +27,7 @@ import { DataTableToolbar } from './data-table-toolbar';
 import { useState } from 'react';
 import { Transaction } from '@/redux/slices/expensesSlice';
 
-interface DataTableProps {
+export interface DataTableProps {
   columns: ColumnDef<Transaction>[];
   data: Transaction[];
 }

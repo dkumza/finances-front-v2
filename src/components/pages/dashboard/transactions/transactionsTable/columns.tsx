@@ -48,6 +48,7 @@ export const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'category',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Category' />,
     cell: ({ row }) => <div className='font-medium '>{row.getValue('category')}</div>,
+    filterFn: 'arrIncludesSome', // To enable multi-value filtering
   },
   {
     accessorKey: 'amount',
