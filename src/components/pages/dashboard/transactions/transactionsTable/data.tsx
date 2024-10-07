@@ -1,22 +1,42 @@
 export const statuses = [
   {
-    value: 'Salary',
-    label: 'Salary',
+    value: 'Beauty',
+    label: 'Beauty',
   },
   {
     value: 'Food',
     label: 'Food',
   },
   {
+    value: 'Health',
+    label: 'Health',
+  },
+  {
     value: 'Home',
     label: 'Home',
   },
   {
-    value: 'done',
-    label: 'Done',
+    value: 'Other',
+    label: 'Other',
   },
   {
-    value: 'canceled',
-    label: 'Canceled',
+    value: 'Salary',
+    label: 'Salary',
+  },
+  {
+    value: 'Savings',
+    label: 'Savings',
+  },
+  {
+    value: 'Services',
+    label: 'Services',
+  },
+  {
+    value: 'Shopping',
+    label: 'Shopping',
+  },
+  {
+    value: 'Transport',
+    label: 'Transport',
   },
 ];
