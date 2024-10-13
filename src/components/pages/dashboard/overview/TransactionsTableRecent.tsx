@@ -60,9 +60,9 @@ export default function TransactionsTableRecent() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Category</TableHead>
+              <TableHead>Created</TableHead>
               <TableHead>Description</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead>Category</TableHead>
               <TableHead className='text-right'>Amount</TableHead>
             </TableRow>
           </TableHeader>
@@ -70,15 +70,17 @@ export default function TransactionsTableRecent() {
             {transactions && transactions.length > 0 ? (
               transactions.slice(0, 10).map((transaction) => (
                 <TableRow key={transaction._id}>
-                  <TableCell>
-                    <div className='font-medium'>{transaction.category}</div>
+                  <TableCell className='table-cell text-sm text-muted-foreground'>
+                    {transaction.date &&
+                      new Date(transaction.createdAt).toISOString().split('T')[0]}
                   </TableCell>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
                     {transaction.description}
                   </TableCell>
-                  <TableCell className='table-cell text-sm text-muted-foreground'>
-                    {transaction.date && new Date(transaction.date).toISOString().split('T')[0]}
+                  <TableCell>
+                    <div className='font-medium'>{transaction.category}</div>
                   </TableCell>
+
                   <TableCell className='text-right'>{transaction.amount} €</TableCell>
                 </TableRow>
               ))

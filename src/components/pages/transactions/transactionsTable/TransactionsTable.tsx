@@ -45,7 +45,10 @@ export function TransactionsTable() {
 
   // update the local data when the transactions change
   useEffect(() => {
-    setData(transactions);
+    const fixCreatedAt = (t: Transaction) => {
+      return { ...t, createdAt: new Date(t.createdAt).toISOString().split('T')[0] };
+    };
+    setData(transactions.map(fixCreatedAt));
   }, [transactions]);
 
   const deleteSelectedRows = useCallback(() => {
@@ -96,7 +99,7 @@ export function TransactionsTable() {
   }, []);
 
   // Define the columns and pass the edit and delete handlers
-  const columns = Columns({ onEdit: handleEdit, setDialog });
+  const columns = Columns({ onEdit: handleEdit });
 
   const table = useReactTable({
     data,

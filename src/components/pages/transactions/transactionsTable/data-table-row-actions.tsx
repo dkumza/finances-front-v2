@@ -10,16 +10,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAppDispatch } from '@/redux/hooks';
+import { useMainContext } from '@/context/mainCtx';
 
 interface DataTableRowActionsProps {
   row: Row<Transaction>;
   onEdit: (transaction: Transaction) => void;
-  setDialog: (value: boolean) => void;
 }
 
-export function DataTableRowActions({ row, onEdit, setDialog }: DataTableRowActionsProps) {
+export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const dispatch = useAppDispatch();
   const transaction = row.original;
+
+  const { setDialog } = useMainContext();
 
   const prepForDelete = (id: string) => {
     dispatch(setExpenseToDelete(id));
@@ -38,7 +40,6 @@ export function DataTableRowActions({ row, onEdit, setDialog }: DataTableRowActi
       <DropdownMenuContent align='end' className='w-[160px]'>
         {/* <DropdownMenuItem onClick={() => onEdit(transaction)}>Edit</DropdownMenuItem> */}
         <DropdownMenuItem onClick={() => prepForDelete(transaction._id)}>Delete</DropdownMenuItem>
-        {/* <DropdownMenuItem onClick={() => onDelete(transaction)}>Delete</DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
