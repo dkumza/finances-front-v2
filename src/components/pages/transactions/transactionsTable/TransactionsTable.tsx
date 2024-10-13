@@ -30,17 +30,18 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { deleteExpense } from '@/redux/actions/expensesActions';
 import { DeleteTransactionDialog } from '../DeleteTransactionDialog';
 import { toast } from '@/components/ui/use-toast';
+import { useMainContext } from '@/context/mainCtx';
 
 export function TransactionsTable() {
   const dispatch = useAppDispatch();
   const { transactions } = useAppSelector((state) => state.expenses.fetchUserExpenses);
 
+  const { setDialog } = useMainContext();
   const [data, setData] = useState<Transaction[]>(transactions);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [dialog, setDialog] = useState(false);
 
   // update the local data when the transactions change
   useEffect(() => {
@@ -121,7 +122,7 @@ export function TransactionsTable() {
 
   return (
     <div className='space-y-4'>
-      <DeleteTransactionDialog dialog={dialog} setDialog={setDialog} handleDelete={handleDelete} />
+      <DeleteTransactionDialog handleDelete={handleDelete} />
       <DataTableToolbar table={table} deleteSelectedRows={deleteSelectedRows} />
       <div className='rounded-md border'>
         <Table>

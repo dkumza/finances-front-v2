@@ -8,21 +8,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { useMainContext } from '@/context/mainCtx';
 import { useAppSelector } from '@/redux/hooks';
 import { FC } from 'react';
 
 interface DeleteTransactionDialogProps {
-  dialog: boolean;
-  setDialog: (value: boolean) => void;
   handleDelete: (transaction: any) => void;
 }
 
-export const DeleteTransactionDialog: FC<DeleteTransactionDialogProps> = ({
-  dialog,
-  setDialog,
-  handleDelete,
-}) => {
+export const DeleteTransactionDialog: FC<DeleteTransactionDialogProps> = ({ handleDelete }) => {
   const { expense } = useAppSelector((state) => state.expenses);
+  const { dialog, setDialog } = useMainContext();
+
   return (
     <AlertDialog open={dialog}>
       <AlertDialogContent>
