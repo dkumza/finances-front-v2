@@ -58,7 +58,7 @@ export const Columns = ({ onEdit, setDialog }: ColumnDefinitionProps): ColumnDef
   {
     accessorKey: 'amount',
     header: ({ column }) => <DataTableColumnHeader column={column} title='Amount' />,
-    cell: ({ row }) => <span className=' font-medium '>{row.getValue('amount')} EUR</span>,
+    cell: ({ row }) => <span className=' font-medium '>{row.getValue('amount')} €</span>,
   },
   {
     id: 'actions',

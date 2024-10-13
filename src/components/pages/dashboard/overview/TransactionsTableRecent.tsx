@@ -10,12 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { handleExpenses, handleUserExpenses } from '@/helpers/handleExpenses';
 import { useAppSelector } from '@/redux/hooks';
+import { useMainContext } from '@/context/mainCtx';
 
 export default function TransactionsTableRecent() {
+  const { setActiveTab } = useMainContext();
+
   useEffect(() => {
     handleUserExpenses();
     handleExpenses();
@@ -40,11 +42,16 @@ export default function TransactionsTableRecent() {
             )}
           </div>
           {transactions.length > 0 && (
-            <Button asChild size='sm' className='ml-auto gap-1'>
-              <Link to={'/transactions'}>
+            <Button
+              asChild
+              size='sm'
+              className='ml-auto gap-1'
+              onClick={() => setActiveTab('transactions')}
+            >
+              <div className='cursor-pointer'>
                 View All
                 <ArrowUpRight className='h-4 w-4' />
-              </Link>
+              </div>
             </Button>
           )}
         </div>

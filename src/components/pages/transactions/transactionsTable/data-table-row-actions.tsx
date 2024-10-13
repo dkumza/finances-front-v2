@@ -36,7 +36,7 @@ export function DataTableRowActions({ row, onEdit, setDialog }: DataTableRowActi
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem onClick={() => onEdit(transaction)}>Edit</DropdownMenuItem>
+        {/* <DropdownMenuItem onClick={() => onEdit(transaction)}>Edit</DropdownMenuItem> */}
         <DropdownMenuItem onClick={() => prepForDelete(transaction._id)}>Delete</DropdownMenuItem>
         {/* <DropdownMenuItem onClick={() => onDelete(transaction)}>Delete</DropdownMenuItem> */}
       </DropdownMenuContent>

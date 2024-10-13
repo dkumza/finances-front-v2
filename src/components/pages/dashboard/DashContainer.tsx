@@ -5,8 +5,10 @@ import { OverviewPage } from './overview/OverviewPage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 import { TransactionsTable } from '../transactions/transactionsTable/TransactionsTable';
+import { useMainContext } from '@/context/mainCtx';
 
 export function DashContainer() {
+  const { activeTab, setActiveTab } = useMainContext();
   const [title, setTitle] = useState('Overview');
   // const location = useLocation();
 
@@ -33,11 +35,11 @@ export function DashContainer() {
                 {/* <div className='relative'>
                 <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
                 <Input
-                  type='search'
-                  placeholder='Search products...'
-                  className='pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]'
+                type='search'
+                placeholder='Search products...'
+                className='pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]'
                 />
-              </div> */}
+                </div> */}
               </form>
               <div className='flex items-center space-x-2 '>
                 <DrawerComponent title={'New Transaction'} />
@@ -47,12 +49,24 @@ export function DashContainer() {
             </div>
           </div>
 
-          <Tabs defaultValue='overview' className='space-y-4'>
+          <Tabs value={activeTab} className='space-y-4'>
             <TabsList>
-              <TabsTrigger value='overview' onClick={() => setPageTitle('Overview')}>
+              <TabsTrigger
+                value='overview'
+                onClick={() => {
+                  setActiveTab('overview');
+                  setPageTitle('Overview');
+                }}
+              >
                 Overview
               </TabsTrigger>
-              <TabsTrigger value='transactions' onClick={() => setPageTitle('Transactions')}>
+              <TabsTrigger
+                value='transactions'
+                onClick={() => {
+                  setActiveTab('transactions');
+                  setPageTitle('Transactions');
+                }}
+              >
                 Transactions
               </TabsTrigger>
             </TabsList>
