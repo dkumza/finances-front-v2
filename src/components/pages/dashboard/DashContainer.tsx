@@ -1,10 +1,10 @@
-import { DrawerComponent } from '@/components/DrawerComponent';
+import { DrawerComponent } from '@/components/pages/transactions/DrawerComponent';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserNav } from './header/UserNav';
 import { OverviewPage } from './overview/OverviewPage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
-import { TransactionsTable } from './transactions/transactionsTable/TransactionsTable';
+import { TransactionsTable } from '../transactions/transactionsTable/TransactionsTable';
 
 export function DashContainer() {
   const [title, setTitle] = useState('Overview');

@@ -6,20 +6,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
@@ -32,15 +22,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import axios from 'axios';
 import { createExpense } from '@/redux/actions/expensesActions';
 import { handleExpenses, handleUserExpenses } from '@/helpers/handleExpenses';
+import { toast } from '@/components/ui/use-toast';
 
 const CATS_URL = 'http://127.0.0.1:3000/expenses/categories';
 interface TransactionsFormProps {
   setDrawerOpen: (value: boolean) => void;
 }
 
-export const TransactionsForm: FC<TransactionsFormProps> = ({
-  setDrawerOpen,
-}) => {
+export const TransactionsForm: FC<TransactionsFormProps> = ({ setDrawerOpen }) => {
   const dispatch = useAppDispatch();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [categories, setCategories] = useState<string[]>([]);
@@ -80,11 +69,13 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
     dispatch(createExpense(values)).then((res) => {
       // The createExpense action has been fulfilled
       if (res.type === 'expenses/createExpense/fulfilled') {
-        // toast.success('Transaction added successfully');
-        // formik.resetForm();
         handleUserExpenses();
         handleExpenses();
         setDrawerOpen(false);
+        toast({
+          description: 'Transaction created successfully',
+          className: 'bg-green-500 text-white',
+        });
       }
       // The createExpense action has been rejected
       if (res.type !== 'expenses/createExpense/fulfilled') {
@@ -106,10 +97,7 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <SelectTrigger>
                     <SelectValue placeholder={'Select Category'} />
                   </SelectTrigger>
@@ -177,11 +165,7 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
                           !field.value && 'text-muted-foreground'
                         )}
                       >
-                        {field.value ? (
-                          format(field.value, 'yyyy-MM-dd')
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
+                        {field.value ? format(field.value, 'yyyy-MM-dd') : <span>Pick a date</span>}
                         <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                       </Button>
                     </FormControl>
@@ -197,9 +181,7 @@ export const TransactionsForm: FC<TransactionsFormProps> = ({
                           setIsCalendarOpen(false);
                         }
                       }}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date('1900-01-01')
-                      }
+                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                       initialFocus
                     />
                   </PopoverContent>

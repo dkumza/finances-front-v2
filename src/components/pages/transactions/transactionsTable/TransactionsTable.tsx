@@ -23,22 +23,29 @@ import {
 
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Transaction } from '@/redux/slices/expensesSlice';
 import { Columns } from './columns';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { deleteExpense } from '@/redux/actions/expensesActions';
 import { DeleteTransactionDialog } from '../DeleteTransactionDialog';
+import { toast } from '@/components/ui/use-toast';
 
 export function TransactionsTable() {
-  const { transactions } = useAppSelector((state) => state.expenses.fetchUserExpenses);
   const dispatch = useAppDispatch();
+  const { transactions } = useAppSelector((state) => state.expenses.fetchUserExpenses);
+
   const [data, setData] = useState<Transaction[]>(transactions);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [dialog, setDialog] = useState(false);
+
+  // update the local data when the transactions change
+  useEffect(() => {
+    setData(transactions);
+  }, [transactions]);
 
   const deleteSelectedRows = useCallback(() => {
     // Get the selected row indices
@@ -69,13 +76,20 @@ export function TransactionsTable() {
   const handleDelete = useCallback((transaction: string) => {
     setDialog(false);
     dispatch(deleteExpense(transaction)).then((res) => {
-      if (res.type === 'expenses/deleteExpense/fulfilled') {
-        console.log('Transaction deleted:', transaction);
+      if (res.type === 'expenses/removeExpense/fulfilled') {
         setData((prevData) => prevData.filter((t) => t._id !== transaction));
         console.log('Deleting transaction:', transaction);
+        toast({
+          description: 'Transaction deleted successful',
+          className: 'bg-green-500 text-white',
+        });
       }
       if (res.type === 'expenses/deleteExpense/rejected') {
         console.log('Error deleting transaction:', transaction);
+        toast({
+          description: 'Failed to delete transaction',
+          className: 'bg-rose-700 text-white',
+        });
       }
     });
   }, []);
@@ -107,12 +121,7 @@ export function TransactionsTable() {
 
   return (
     <div className='space-y-4'>
-      <DeleteTransactionDialog
-        dialog={dialog}
-        setDialog={setDialog}
-        setData={setData}
-        handleDelete={handleDelete}
-      />
+      <DeleteTransactionDialog dialog={dialog} setDialog={setDialog} handleDelete={handleDelete} />
       <DataTableToolbar table={table} deleteSelectedRows={deleteSelectedRows} />
       <div className='rounded-md border'>
         <Table>

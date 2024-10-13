@@ -14,7 +14,6 @@ import { FC } from 'react';
 interface DeleteTransactionDialogProps {
   dialog: boolean;
   setDialog: (value: boolean) => void;
-  setData: (value: any) => void;
   handleDelete: (transaction: any) => void;
 }
 

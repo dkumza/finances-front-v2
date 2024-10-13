@@ -1,7 +1,7 @@
 import { UserNav } from './UserNav';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import CustomPopoverSelect from '@/components/customInputs/CustomPopoverSelect';
-import { DrawerComponent } from '@/components/DrawerComponent';
+import { DrawerComponent } from '@/components/pages/transactions/DrawerComponent';
 
 export const Header = () => {
   return (
