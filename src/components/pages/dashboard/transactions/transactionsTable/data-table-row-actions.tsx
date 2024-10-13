@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
-import { Transaction } from '@/redux/slices/expensesSlice';
+import { setExpenseToDelete, Transaction } from '@/redux/slices/expensesSlice';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -9,15 +9,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppDispatch } from '@/redux/hooks';
 
 interface DataTableRowActionsProps {
   row: Row<Transaction>;
   onEdit: (transaction: Transaction) => void;
-  onDelete: (transaction: Transaction) => void;
+  setDialog: (value: boolean) => void;
 }
 
-export function DataTableRowActions({ row, onEdit, onDelete }: DataTableRowActionsProps) {
+export function DataTableRowActions({ row, onEdit, setDialog }: DataTableRowActionsProps) {
+  const dispatch = useAppDispatch();
   const transaction = row.original;
+
+  const prepForDelete = (id: string) => {
+    dispatch(setExpenseToDelete(id));
+    // Open the dialog
+    setDialog(true);
+  };
 
   return (
     <DropdownMenu>
@@ -29,7 +37,8 @@ export function DataTableRowActions({ row, onEdit, onDelete }: DataTableRowActio
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem onClick={() => onEdit(transaction)}>Edit</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onDelete(transaction)}>Delete</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => prepForDelete(transaction._id)}>Delete</DropdownMenuItem>
+        {/* <DropdownMenuItem onClick={() => onDelete(transaction)}>Delete</DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -8,10 +8,10 @@ import { Transaction } from '@/redux/slices/expensesSlice';
 
 interface ColumnDefinitionProps {
   onEdit: (transaction: Transaction) => void;
-  onDelete: (transaction: Transaction) => void;
+  setDialog: (value: boolean) => void;
 }
 
-export const Columns = ({ onEdit, onDelete }: ColumnDefinitionProps): ColumnDef<Transaction>[] => [
+export const Columns = ({ onEdit, setDialog }: ColumnDefinitionProps): ColumnDef<Transaction>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -62,6 +62,6 @@ export const Columns = ({ onEdit, onDelete }: ColumnDefinitionProps): ColumnDef<
   },
   {
     id: 'actions',
-    cell: ({ row }) => <DataTableRowActions row={row} onEdit={onEdit} onDelete={onDelete} />,
+    cell: ({ row }) => <DataTableRowActions row={row} onEdit={onEdit} setDialog={setDialog} />,
   },
 ];

@@ -1,14 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {
-  MyRejectValue,
-  handleAxiosError,
-} from '../../helpers/handleAxiosError';
-import { FormValues } from '../../components/inputs/Input';
+import { MyRejectValue, handleAxiosError } from '../../helpers/handleAxiosError';
 import { Expense } from '../slices/expensesSlice';
 import { RootState } from '../store';
 import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '../../middlewares/loginMW';
+import { FormValues } from '@/helpers/types';
 
 export interface FetchExp {
   payload: {

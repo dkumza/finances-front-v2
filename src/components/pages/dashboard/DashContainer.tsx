@@ -2,9 +2,9 @@ import { DrawerComponent } from '@/components/DrawerComponent';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserNav } from './header/UserNav';
 import { OverviewPage } from './overview/OverviewPage';
-import { TransactionsPage } from './transactions/TransactionsPage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
+import { TransactionsTable } from './transactions/transactionsTable/TransactionsTable';
 
 export function DashContainer() {
   const [title, setTitle] = useState('Overview');
@@ -60,7 +60,7 @@ export function DashContainer() {
               <OverviewPage />
             </TabsContent>
             <TabsContent value='transactions' className='space-y-4'>
-              <TransactionsPage />
+              <TransactionsTable />
             </TabsContent>
           </Tabs>
         </div>

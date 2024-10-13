@@ -26,18 +26,19 @@ import { DataTableToolbar } from './data-table-toolbar';
 import { useCallback, useState } from 'react';
 import { Transaction } from '@/redux/slices/expensesSlice';
 import { Columns } from './columns';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { deleteExpense } from '@/redux/actions/expensesActions';
+import { DeleteTransactionDialog } from '../DeleteTransactionDialog';
 
-export interface DataTableProps {
-  // columns: ColumnDef<Transaction>[];
-  data: Transaction[];
-}
-
-export function TransactionsTable({ data: initialData }: DataTableProps) {
-  const [data, setData] = useState(initialData);
+export function TransactionsTable() {
+  const { transactions } = useAppSelector((state) => state.expenses.fetchUserExpenses);
+  const dispatch = useAppDispatch();
+  const [data, setData] = useState<Transaction[]>(transactions);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [dialog, setDialog] = useState(false);
 
   const deleteSelectedRows = useCallback(() => {
     // Get the selected row indices
@@ -65,14 +66,22 @@ export function TransactionsTable({ data: initialData }: DataTableProps) {
     console.log('Editing transaction:', transaction);
   }, []);
 
-  const handleDelete = useCallback((transaction: Transaction) => {
-    // Implement your delete logic here
-    console.log('Deleting transaction:', transaction);
-    setData((prevData) => prevData.filter((t) => t._id !== transaction._id));
+  const handleDelete = useCallback((transaction: string) => {
+    setDialog(false);
+    dispatch(deleteExpense(transaction)).then((res) => {
+      if (res.type === 'expenses/deleteExpense/fulfilled') {
+        console.log('Transaction deleted:', transaction);
+        setData((prevData) => prevData.filter((t) => t._id !== transaction));
+        console.log('Deleting transaction:', transaction);
+      }
+      if (res.type === 'expenses/deleteExpense/rejected') {
+        console.log('Error deleting transaction:', transaction);
+      }
+    });
   }, []);
 
   // Define the columns and pass the edit and delete handlers
-  const columns = Columns({ onEdit: handleEdit, onDelete: handleDelete });
+  const columns = Columns({ onEdit: handleEdit, setDialog });
 
   const table = useReactTable({
     data,
@@ -98,6 +107,12 @@ export function TransactionsTable({ data: initialData }: DataTableProps) {
 
   return (
     <div className='space-y-4'>
+      <DeleteTransactionDialog
+        dialog={dialog}
+        setDialog={setDialog}
+        setData={setData}
+        handleDelete={handleDelete}
+      />
       <DataTableToolbar table={table} deleteSelectedRows={deleteSelectedRows} />
       <div className='rounded-md border'>
         <Table>
