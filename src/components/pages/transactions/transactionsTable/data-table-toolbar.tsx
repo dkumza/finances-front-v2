@@ -1,35 +1,38 @@
-'use client';
-
-import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon, TrashIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { DataTableViewOptions } from './data-table-view-options';
 
-import { statuses } from './data';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
+import { statuses } from './data';
+import { DataTableViewOptions } from './data-table-view-options';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  deleteSelectedRows: () => void;
 }
 
-export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({
+  table,
+  deleteSelectedRows,
+}: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const selectedRowsCount = Object.keys(table.getState().rowSelection).length;
 
   return (
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 items-center space-x-2'>
         <Input
           placeholder='Filter tasks...'
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn('description')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
           className='h-8 w-[150px] lg:w-[250px]'
         />
-        {table.getColumn('status') && (
+        {table.getColumn('category') && (
           <DataTableFacetedFilter
-            column={table.getColumn('status')}
-            title='Status'
+            column={table.getColumn('category')}
+            title='Category'
             options={statuses}
           />
         )}
@@ -45,6 +48,12 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           </Button>
         )}
       </div>
+      {selectedRowsCount > 0 && (
+        <Button variant='outline' size='sm' className='mr-2' onClick={deleteSelectedRows}>
+          <TrashIcon className=' h-4 w-4' />
+          Delete Selected
+        </Button>
+      )}
       <DataTableViewOptions table={table} />
     </div>
   );

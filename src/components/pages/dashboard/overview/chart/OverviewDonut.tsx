@@ -51,7 +51,7 @@ export function OverviewDonut() {
   console.log('chartData: ', chartData);
 
   return (
-    <Card className='md:col-span-4'>
+    <Card className='lg:col-span-4 col-span-6'>
       <CardHeader className='flex justify-center align-middle pb-2'>
         <CardTitle className=''>Overview Expenses</CardTitle>
         {allExpenses.length === 0 && (

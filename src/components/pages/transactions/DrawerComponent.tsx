@@ -11,7 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
-import { TransactionsForm } from './pages/dashboard/transactions/TransactionsForm';
+import { TransactionsForm } from './TransactionsForm';
 interface DrawerComponentProps {
   title: string;
 }
@@ -52,10 +52,7 @@ export const DrawerComponent: React.FC<DrawerComponentProps> = ({ title }) => {
             </DrawerDescription>
           </DrawerHeader>
           <div className=''>
-            <div
-              id='drawer-body'
-              className='flex items-center justify-center space-x-2'
-            >
+            <div id='drawer-body' className='flex items-center justify-center space-x-2'>
               <TransactionsForm setDrawerOpen={setDrawerOpen} />
             </div>
           </div>

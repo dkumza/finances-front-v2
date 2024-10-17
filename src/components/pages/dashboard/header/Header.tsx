@@ -1,7 +1,7 @@
 import { UserNav } from './UserNav';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import CustomPopoverSelect from '@/components/customInputs/CustomPopoverSelect';
-import { DrawerComponent } from '@/components/DrawerComponent';
+import { DrawerComponent } from '@/components/pages/transactions/DrawerComponent';
 
 export const Header = () => {
   return (
@@ -21,7 +21,7 @@ export const Header = () => {
             </div> */}
         </form>
         <div className='flex items-center space-x-2'>
-          <DrawerComponent title={'New Transaction'} />
+          <DrawerComponent title='New Transaction' />
         </div>
         <ThemeSwitcher />
         <UserNav />

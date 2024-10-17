@@ -6,6 +6,7 @@ import { logout } from './redux/slices/authSlice.ts';
 import { DashContainer } from './components/pages/dashboard/DashContainer.tsx';
 import { useAppDispatch, useAppSelector } from './redux/hooks.ts';
 import { ThemeProvider } from './context/ThemeCtx.tsx';
+import { MainProvider } from './context/mainCtx.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,24 +24,32 @@ function App() {
   }, [token, dispatch]);
 
   return (
-    <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
-      <div className={`flex flex-col items-center align-middle`}>
-        <Routes>
-          <Route path='/login' element={token ? <Navigate to='/' /> : <Login />} />
-          {/* <Route
+    <MainProvider>
+      <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
+        <div className={`flex flex-col items-center align-middle`}>
+          <Routes>
+            <Route
+              path='/login'
+              element={token ? <Navigate to='/' /> : <Login />}
+            />
+            {/* <Route
           path='/signup'
           element={token ? <Navigate to='/' /> : <SignUpPage />}
           /> */}
-          {/* <Route
+            {/* <Route
           path='/expenses'
           element={!token ? <Navigate to='/' /> : <ExpensesPage />}
           /> */}
-          <Route path='/*' element={token ? <DashContainer /> : <Navigate to='/login' />} />
-          {/* 404 route */}
-          {/* <Route path='*' element={<PageNotFound />} /> */}
-        </Routes>
-      </div>
-    </ThemeProvider>
+            <Route
+              path='/*'
+              element={token ? <DashContainer /> : <Navigate to='/login' />}
+            />
+            {/* 404 route */}
+            {/* <Route path='*' element={<PageNotFound />} /> */}
+          </Routes>
+        </div>
+      </ThemeProvider>
+    </MainProvider>
   );
 }
 
