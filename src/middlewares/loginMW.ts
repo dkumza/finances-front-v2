@@ -8,36 +8,18 @@ export interface DecodedToken {
 
 export const loginMW: Middleware = (storeApi) => (next) => (action) => {
   const result = next(action);
+  // getting only the token from the store, and saving as JSON to local storage
   const tokenState = storeApi.getState().login.token;
+  // const tokenJSON = JSON.stringify(tokenState);
+  localStorage.setItem('token', tokenState);
 
+  //  decode the token and save needed data to local storage
   if (tokenState) {
-    try {
-      // Store token in both localStorage and sessionStorage
-      localStorage.setItem('token', tokenState);
-      sessionStorage.setItem('token', tokenState);
-
-      // Decode the token and save needed data
-      const decodedToken: DecodedToken = jwtDecode(tokenState);
-      if (decodedToken.email) {
-        localStorage.setItem('email', decodedToken.email);
-        sessionStorage.setItem('email', decodedToken.email);
-      }
-      if (decodedToken.id) {
-        localStorage.setItem('userId', decodedToken.id);
-        sessionStorage.setItem('userId', decodedToken.id);
-      }
-    } catch (error) {
-      console.error('Error processing token:', error);
+    const decodedToken: DecodedToken = jwtDecode(tokenState);
+    const email = decodedToken.email;
+    if (email) {
+      localStorage.setItem('email', email);
     }
-  } else {
-    // Clear storage if there's no token
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
-    localStorage.removeItem('email');
-    sessionStorage.removeItem('email');
-    localStorage.removeItem('userId');
-    sessionStorage.removeItem('userId');
   }
-
   return result;
 };

@@ -13,7 +13,7 @@ function App() {
   const token = useAppSelector((state) => state.login.token);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       dispatch(tokenStatus(token)).then((res) => {
         if (res.type === 'auth/tokenStatus/rejected') {
