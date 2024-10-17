@@ -5,7 +5,9 @@ import {
   handleAxiosError,
 } from '../../helpers/handleAxiosError';
 
-const AUTH_URL = 'http://127.0.0.1:3000';
+const AUTH_URL = window.location.hostname.includes('localhost')
+  ? 'http://localhost:3000'
+  : 'http://192.168.32.124:3000';
 
 export const tokenStatus = createAsyncThunk<
   string,

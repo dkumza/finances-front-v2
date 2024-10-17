@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { MyRejectValue, handleAxiosError } from '../../helpers/handleAxiosError';
+import {
+  MyRejectValue,
+  handleAxiosError,
+} from '../../helpers/handleAxiosError';
 import { Expense } from '../slices/expensesSlice';
 import { RootState } from '../store';
 import { jwtDecode } from 'jwt-decode';
@@ -14,7 +17,9 @@ export interface FetchExp {
   };
 }
 
-const EXP_URL = 'http://127.0.0.1:3000/expenses';
+const EXP_URL = window.location.hostname.includes('localhost')
+  ? 'http://127.0.0.1:3000/expenses'
+  : 'http://192.168.32.124:3000/expenses';
 
 export const createExpense = createAsyncThunk<
   string,

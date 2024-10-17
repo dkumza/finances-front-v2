@@ -1,7 +1,13 @@
 import { ArrowUpRight } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -23,9 +29,11 @@ export default function TransactionsTableRecent() {
     handleExpenses();
   }, []);
 
-  const { transactions } = useAppSelector((state) => state.expenses.fetchedExpenses);
+  const { transactions } = useAppSelector(
+    (state) => state.expenses.fetchedExpenses
+  );
   return (
-    <Card className='lg:col-span-6 col-span-6'>
+    <Card className='col-span-6'>
       <CardHeader className='flex flex-row items-center pb-2'>
         <div className='flex justify-between w-full items-center align-middle'>
           <div className='grid '>
@@ -61,7 +69,7 @@ export default function TransactionsTableRecent() {
           <TableHeader>
             <TableRow>
               <TableHead>Created</TableHead>
-              <TableHead>Description</TableHead>
+              <TableHead className='lg:flex hidden'>Description</TableHead>
               <TableHead>Category</TableHead>
               <TableHead className='text-right'>Amount</TableHead>
             </TableRow>
@@ -72,16 +80,20 @@ export default function TransactionsTableRecent() {
                 <TableRow key={transaction._id}>
                   <TableCell className='table-cell text-sm text-muted-foreground'>
                     {transaction.date &&
-                      new Date(transaction.createdAt).toISOString().split('T')[0]}
+                      new Date(transaction.createdAt)
+                        .toISOString()
+                        .split('T')[0]}
                   </TableCell>
-                  <TableCell className='table-cell text-sm text-muted-foreground'>
+                  <TableCell className=' text-sm text-muted-foreground lg:flex hidden'>
                     {transaction.description}
                   </TableCell>
                   <TableCell>
                     <div className='font-medium'>{transaction.category}</div>
                   </TableCell>
 
-                  <TableCell className='text-right'>{transaction.amount} €</TableCell>
+                  <TableCell className='text-right'>
+                    {transaction.amount} €
+                  </TableCell>
                 </TableRow>
               ))
             ) : (

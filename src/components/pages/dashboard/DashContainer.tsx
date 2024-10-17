@@ -1,5 +1,4 @@
 import { DrawerComponent } from '@/components/pages/transactions/DrawerComponent';
-import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserNav } from './header/UserNav';
 import { OverviewPage } from './overview/OverviewPage';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -17,11 +16,11 @@ export function DashContainer() {
   };
 
   return (
-    <div className='flex min-h-screen w-full flex-col container'>
+    <div className='flex min-h-screen w-full flex-col container px-4'>
       {/* <Header /> */}
       <div className='flex'>
         {/* <DashSidebar className='hidden lg:block' /> */}
-        <div className='flex-1 space-y-4 p-8 pt-0'>
+        <div className='flex-1 space-y-4'>
           <div className='flex items justify-between'>
             <div className='flex pt-6 pb-2  w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 '>
               <div className='flex items justify-between gap-8'>
@@ -44,7 +43,7 @@ export function DashContainer() {
               <div className='flex items-center space-x-2 '>
                 <DrawerComponent title={'New Transaction'} />
               </div>
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
               <UserNav />
             </div>
           </div>

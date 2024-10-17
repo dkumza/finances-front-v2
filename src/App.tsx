@@ -13,7 +13,7 @@ function App() {
   const token = useAppSelector((state) => state.login.token);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       dispatch(tokenStatus(token)).then((res) => {
         if (res.type === 'auth/tokenStatus/rejected') {
@@ -28,7 +28,10 @@ function App() {
       <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
         <div className={`flex flex-col items-center align-middle`}>
           <Routes>
-            <Route path='/login' element={token ? <Navigate to='/' /> : <Login />} />
+            <Route
+              path='/login'
+              element={token ? <Navigate to='/' /> : <Login />}
+            />
             {/* <Route
           path='/signup'
           element={token ? <Navigate to='/' /> : <SignUpPage />}
@@ -37,7 +40,10 @@ function App() {
           path='/expenses'
           element={!token ? <Navigate to='/' /> : <ExpensesPage />}
           /> */}
-            <Route path='/*' element={token ? <DashContainer /> : <Navigate to='/login' />} />
+            <Route
+              path='/*'
+              element={token ? <DashContainer /> : <Navigate to='/login' />}
+            />
             {/* 404 route */}
             {/* <Route path='*' element={<PageNotFound />} /> */}
           </Routes>

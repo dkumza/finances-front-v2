@@ -10,8 +10,10 @@ export interface AuthState {
   error: string | null;
 }
 
-const localStorageToken = localStorage.getItem('token');
-const localStorageEmail = localStorage.getItem('email');
+const localStorageToken =
+  localStorage.getItem('token') || sessionStorage.getItem('token');
+const localStorageEmail =
+  localStorage.getItem('email') || sessionStorage.getItem('email');
 
 export const initialState: AuthState = {
   token: localStorageToken || '',
